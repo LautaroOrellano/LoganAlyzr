@@ -1,0 +1,11 @@
+INFO  [2025-09-20 10:00:00] - Inicio del sistema
+WARN  [2025-09-20 10:05:00] - Uso de memoria por encima del 80%
+ERROR [2025-09-20 10:10:00] - No se pudo conectar a la base de datos
+INFO  [2025-09-20 10:15:00] - Petición procesada correctamente
+ERROR [2025-09-20 10:20:00] - Timeout en la petición HTTP
+WARN  [2025-09-20 10:25:00] - Conexión inestable detectada
+INFO  [2025-09-20 10:30:00] - Usuario logueado
+ERROR [2025-09-20 10:35:00] - Archivo de configuración no encontrado
+INFO  [2025-09-20 10:40:00] - Tarea completada
+DEBUG [2025-09-20 10:45:00] - Objeto creado en memoria
+ERROR [2025-09-20 10:50:00] - Falla en el servicio externo
