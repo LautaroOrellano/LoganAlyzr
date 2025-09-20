@@ -1,6 +1,8 @@
 package com.loganalizyr.collector;
 
 
+import com.loganalizyr.model.LogEntry;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -29,8 +31,8 @@ public class FileLogCollector {
      * @param limit cantidad máxima de líneas a leer
      * @return lista de líneas leídas
      */
-    public List<String> readLogs(int offset, int limit)  {
-        List<String> logs = new ArrayList<>();
+    public List<LogEntry> readLogs(int offset, int limit)  {
+        List<LogEntry> logs = new ArrayList<>();
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             int currentLine = 0;
@@ -41,7 +43,20 @@ public class FileLogCollector {
 
             int linesRead = 0;
             while (linesRead < limit && (line = reader.readLine()) != null) {
-                logs.add(line);
+                String[] parts = line.split(" - ", 2);
+                if (parts.length == 2) {
+                    String left = parts[0].trim();
+                    String message = parts[1].trim();
+
+                    String level = left.substring(0,left.indexOf(" "));
+
+                    int startTime = left.indexOf("[");
+                    int endTime = left.indexOf("]", startTime);
+                    String timestamp = left.substring(startTime + 1, endTime);
+
+                    logs.add(new LogEntry(timestamp, level, message));
+                }
+                linesRead++;
             }
         } catch (IOException e) {
             e.printStackTrace();
