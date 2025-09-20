@@ -1,4 +1,5 @@
 import com.loganalizyr.collector.FileLogCollector;
+import com.loganalizyr.model.LogEntry;
 import com.loganalizyr.processor.LogProcessor;
 
 import java.util.List;
@@ -11,13 +12,13 @@ public class Main {
 
         int offset = 0;
         int limit = 7;
-        List<String> logs;
+        List<LogEntry> logs;
         int totalMatches = 0;
 
         do {
             logs = collector.readLogs(offset, limit);
             if (!logs.isEmpty()) {
-                List<String> filtered = processor.filterLogs(logs);
+                List<LogEntry> filtered = processor.filterLogs(logs);
                 filtered.forEach(System.out::println);
                 totalMatches += filtered.size();
                 offset += logs.size();
