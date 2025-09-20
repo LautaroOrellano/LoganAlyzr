@@ -1,5 +1,7 @@
 package com.loganalizyr.processor;
 
+import com.loganalizyr.model.LogEntry;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +26,12 @@ public class LogProcessor {
      * @param logs lista de logs a filtrar
      * @return lista de logs filtradros
      */
-    public List<String> filterLogs(List<String> logs) {
-        List<String> filterLogs = new ArrayList<>();
-        for (String log : logs) {
-            if(log.contains(keyword)) {
+    public List<LogEntry> filterLogs(List<LogEntry> logs) {
+        List<LogEntry> filterLogs = new ArrayList<>();
+        for (LogEntry log : logs) {
+            if (log.getMessage().contains(keyword) ||
+                log.getLevel().contains(keyword) ||
+                log.getTimestamp().contains(keyword)) {
                 filterLogs.add(log);
             }
         }
