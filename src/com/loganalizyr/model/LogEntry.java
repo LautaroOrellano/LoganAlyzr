@@ -1,22 +1,24 @@
 package com.loganalizyr.model;
 
+import java.time.LocalDateTime;
+
 public class LogEntry {
 
-    private String timestamp;
+    private LocalDateTime timestamp;
     private String level;
     private String message;
 
-    public LogEntry(String timestamp, String level, String message) {
+    public LogEntry(LocalDateTime timestamp, String level, String message) {
         this.timestamp = timestamp;
         this.level = level;
         this.message = message;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
