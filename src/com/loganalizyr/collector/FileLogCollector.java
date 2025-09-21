@@ -6,12 +6,16 @@ import com.loganalizyr.model.LogEntry;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileLogCollector {
 
     private String filePath;
+
+    public FileLogCollector() {};
 
     public FileLogCollector(String filePath) {
         this.filePath = filePath;
@@ -31,8 +35,10 @@ public class FileLogCollector {
      * @param limit cantidad máxima de líneas a leer
      * @return lista de líneas leídas
      */
-    public List<LogEntry> readLogs(int offset, int limit)  {
+    public List<LogEntry> loadLogs(String filePath, int offset, int limit)  {
         List<LogEntry> logs = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             int currentLine = 0;
@@ -54,7 +60,9 @@ public class FileLogCollector {
                     int endTime = left.indexOf("]", startTime);
                     String timestamp = left.substring(startTime + 1, endTime);
 
-                    logs.add(new LogEntry(timestamp, level, message));
+                    LocalDateTime time = LocalDateTime.parse(timestamp, formatter);
+
+                    logs.add(new LogEntry(time, level, message));
                 }
                 linesRead++;
             }
