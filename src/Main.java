@@ -1,31 +1,28 @@
 import com.loganalizyr.collector.FileLogCollector;
 import com.loganalizyr.model.LogEntry;
 import com.loganalizyr.processor.LogProcessor;
+import com.loganalizyr.service.LogFilterCriteria;
+import com.loganalizyr.service.filterLog.FilterLogsService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
 public class Main {
     public static void main(String[] args) {
-        FileLogCollector collector = new FileLogCollector("logs.txt");
-        LogProcessor processor = new LogProcessor("INFO");
+        String filePath = "C:/";
+        FileLogCollector collector = new FileLogCollector();
+        List<LogEntry> logs = collector.loadLogs(filePath, 1,500);
+        FilterLogsService service = new FilterLogsService();
 
-        int offset = 0;
-        int limit = 7;
-        List<LogEntry> logs;
-        int totalMatches = 0;
+        LogFilterCriteria criteria = new LogFilterCriteria();
+        criteria.setStartDate(LocalDateTime.of(2025, 9, 1, 0, 0));
+        criteria.setEndDate(LocalDateTime.of(2025, 9 ,  21, 23, 59));
+        criteria.setLevel("Error");
+        criteria.setKeyword("fallo");
 
-        do {
-            logs = collector.readLogs(offset, limit);
-            if (!logs.isEmpty()) {
-                List<LogEntry> filtered = processor.filterLogs(logs);
-                filtered.forEach(System.out::println);
-                totalMatches += filtered.size();
-                offset += logs.size();
-            }
-        } while (!logs.isEmpty());
-
-        System.out.println("\n🔎 Total coincidencias encontradas: " + totalMatches);
+        List<LogEntry> filteredLog = service.filterLogs(logs, criteria);
+        filteredLog.forEach(System.out::println);
     }
 
 }
