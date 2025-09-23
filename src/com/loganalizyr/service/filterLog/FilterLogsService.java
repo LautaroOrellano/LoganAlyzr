@@ -17,7 +17,6 @@ public class FilterLogsService implements IFilterLogs {
      * @return lista de logs filtradros
      */
     public List<LogEntry> filterLogs(List<LogEntry> logs, LogFilterCriteria criteria) {
-        List<LogEntry> filterLogs = new ArrayList<>();
         return logs.stream()
                 .filter(log -> {
                     boolean matches = true;
@@ -28,11 +27,17 @@ public class FilterLogsService implements IFilterLogs {
                     if (criteria.getEndDate() != null) {
                         matches &= !log.getTimestamp().isAfter(criteria.getEndDate());
                     }
-                    if (criteria.getLevel() != null && !criteria.getLevel().isEmpty()) {
-                        matches &= log.getLevel().equalsIgnoreCase(criteria.getLevel());
+                    if (criteria.hasLevels()) {
+                        matches &= criteria.getLevels()
+                                .stream()
+                                .anyMatch(level ->
+                                        log.getLevel().equalsIgnoreCase(level));
                     }
-                    if (criteria.getKeyword() != null && !criteria.getKeyword().isEmpty()) {
-                        matches &= log.getMessage().toLowerCase().contains(criteria.getKeyword().toLowerCase());
+                    if (criteria.hasKeywords()) {
+                        matches = matches && criteria.getKeywords()
+                                .stream()
+                                .anyMatch(keyword ->
+                                        log.getMessage().equalsIgnoreCase(keyword));
                     }
 
                     return matches;
