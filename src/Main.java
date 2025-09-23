@@ -18,8 +18,8 @@ public class Main {
         LogFilterCriteria criteria = new LogFilterCriteria();
         criteria.setStartDate(LocalDateTime.of(2025, 9, 1, 0, 0));
         criteria.setEndDate(LocalDateTime.of(2025, 9 ,  21, 23, 59));
-        criteria.setLevel("Error");
-        criteria.setKeyword("fallo");
+        criteria.setLevels(List.of("ERROR", "INFO"));
+        criteria.setKeywords(List.of(" ", " "));
 
         List<LogEntry> filteredLog = service.filterLogs(logs, criteria);
         filteredLog.forEach(System.out::println);
