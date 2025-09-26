@@ -1,11 +1,11 @@
 package com.loganalizyr.cofig;
 
 import com.loganalizyr.collector.FileLogCollector;
+import com.loganalizyr.model.KeywordCriteria;
 import com.loganalizyr.model.LogEntry;
 import com.loganalizyr.service.LogFilterCriteria;
 import com.loganalizyr.service.filterLog.FilterLogsService;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +13,8 @@ public class AppInitializer {
 
     private final FileLogCollector collector;
     private final FilterLogsService filterService;
+
+    KeywordCriteria keyword1 = new KeywordCriteria("falla", false, true, false);
 
     public AppInitializer() {
         this.collector = new FileLogCollector();
@@ -33,7 +35,7 @@ public class AppInitializer {
             criteria.setStartDate(LocalDateTime.of(2025, 9, 1, 0, 0));
             criteria.setEndDate(LocalDateTime.of(2025, 9 ,  21, 23, 59));
             criteria.setLevels(List.of("ERROR", "INFO"));
-            criteria.setKeywords(List.of());
+            criteria.setKeywords(List.of(keyword1));
 
             List<LogEntry> filtered = filterService.filterLogs(logs, criteria);
 

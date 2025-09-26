@@ -36,8 +36,8 @@ public class FilterLogsService implements IFilterLogs {
                     if (criteria.hasKeywords()) {
                         matches = matches && criteria.getKeywords()
                                 .stream()
-                                .anyMatch(keyword ->
-                                        log.getMessage().equalsIgnoreCase(keyword));
+                                .anyMatch(keywordCriteria ->
+                                        keywordCriteria.matches(log.getMessage()));
                     }
 
                     return matches;
