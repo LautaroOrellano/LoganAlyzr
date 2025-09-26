@@ -1,10 +1,10 @@
-package com.loganalizyr.service;
+package com.loganalizyr.services;
 
-import com.loganalizyr.model.KeywordCriteria;
+import com.loganalizyr.models.KeywordCriteria;
+import enums.MatchMode;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class LogFilterCriteria {
     List<KeywordCriteria> keywords;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-
+    private MatchMode matchMode;
 
     public LogFilterCriteria() {
         this.levels = new ArrayList<>();
@@ -55,6 +55,14 @@ public class LogFilterCriteria {
 
     public void setLevels(List<String> levels) {
         this.levels = levels;
+    }
+
+    public MatchMode getMatchMode() {
+        return matchMode;
+    }
+
+    public void setMatchMode(MatchMode matchMode) {
+        this.matchMode = matchMode;
     }
 
     public boolean hasLevels() {

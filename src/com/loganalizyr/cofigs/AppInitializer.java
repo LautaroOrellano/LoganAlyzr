@@ -1,11 +1,12 @@
-package com.loganalizyr.cofig;
+package com.loganalizyr.cofigs;
 
-import com.loganalizyr.collector.FileLogCollector;
-import com.loganalizyr.model.LogEntry;
-import com.loganalizyr.service.LogFilterCriteria;
-import com.loganalizyr.service.filterLog.FilterLogsService;
+import com.loganalizyr.collectors.FileLogCollector;
+import com.loganalizyr.models.KeywordCriteria;
+import com.loganalizyr.models.LogEntry;
+import com.loganalizyr.services.LogFilterCriteria;
+import com.loganalizyr.services.filterLog.FilterLogsService;
+import enums.MatchMode;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +14,11 @@ public class AppInitializer {
 
     private final FileLogCollector collector;
     private final FilterLogsService filterService;
+
+    KeywordCriteria keyword1 = new KeywordCriteria("desconectado", false,
+            true, false, false);
+    KeywordCriteria keyword2 = new KeywordCriteria("usuario", false,
+            true, false, true);
 
     public AppInitializer() {
         this.collector = new FileLogCollector();
@@ -32,8 +38,9 @@ public class AppInitializer {
             LogFilterCriteria criteria = new LogFilterCriteria();
             criteria.setStartDate(LocalDateTime.of(2025, 9, 1, 0, 0));
             criteria.setEndDate(LocalDateTime.of(2025, 9 ,  21, 23, 59));
+            criteria.setMatchMode(MatchMode.ALL);
             criteria.setLevels(List.of("ERROR", "INFO"));
-            criteria.setKeywords(List.of());
+            criteria.setKeywords(List.of(keyword1, keyword2));
 
             List<LogEntry> filtered = filterService.filterLogs(logs, criteria);
 

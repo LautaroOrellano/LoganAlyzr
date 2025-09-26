@@ -1,15 +1,13 @@
-package com.loganalizyr.service.filterLog;
+package com.loganalizyr.services.filterLog;
 
-import com.loganalizyr.model.LogEntry;
-import com.loganalizyr.service.LogFilterCriteria;
+import com.loganalizyr.models.LogEntry;
+import com.loganalizyr.services.LogFilterCriteria;
+import enums.MatchMode;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class FilterLogsService implements IFilterLogs {
-
 
     /**
      * filtra los logs que contienen la palabra clave
@@ -34,14 +32,19 @@ public class FilterLogsService implements IFilterLogs {
                                         log.getLevel().equalsIgnoreCase(level));
                     }
                     if (criteria.hasKeywords()) {
-                        matches = matches && criteria.getKeywords()
-                                .stream()
-                                .anyMatch(keyword ->
-                                        log.getMessage().equalsIgnoreCase(keyword));
+                        if (criteria.getMatchMode() == MatchMode.ANY) {
+                            matches = matches && criteria.getKeywords()
+                                    .stream()
+                                    .anyMatch(keywordCriteria ->
+                                            keywordCriteria.matches(log.getMessage()));
+                        } else if (criteria.getMatchMode() == MatchMode.ALL) {
+                            matches = matches && criteria.getKeywords()
+                                    .stream()
+                                    .allMatch(keywordCriteria ->
+                                            keywordCriteria.matches(log.getMessage()));
+                        }
                     }
-
                     return matches;
-
                 })
                 .collect(Collectors.toList());
     }
