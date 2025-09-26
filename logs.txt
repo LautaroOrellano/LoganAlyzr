@@ -9,3 +9,28 @@ ERROR [2025-09-20 10:35:00] - Archivo de configuración no encontrado
 INFO  [2025-09-20 10:40:00] - Tarea completada
 DEBUG [2025-09-20 10:45:00] - Objeto creado en memoria
 ERROR [2025-09-20 10:50:00] - Falla en el servicio externo
+INFO  [2025-09-21 09:00:00] - Backup de base de datos finalizado
+WARN  [2025-09-21 09:15:00] - CPU al 95% de uso
+ERROR [2025-09-21 09:20:00] - Error al procesar archivo CSV: columna faltante
+DEBUG [2025-09-21 09:25:00] - Creando hilo de monitoreo
+INFO  [2025-09-21 09:30:00] - Sesión iniciada por usuario admin
+ERROR [2025-09-21 09:35:00] - Usuario no autorizado para operación
+WARN  [2025-09-21 09:40:00] - Latencia de red elevada: 450ms
+DEBUG [2025-09-21 09:45:00] - Variables temporales: x=10, y=20
+INFO  [2025-09-21 09:50:00] - Tarea programada ejecutada correctamente
+ERROR [2025-09-21 09:55:00] - Fallo al enviar correo electrónico
+INFO  [2025-09-21 10:00:00] - Usuario admin desconectado
+ERROR [2025-09-21 10:05:00] - Error crítico: NullPointerException en Main.java:45
+DEBUG [2025-09-21 10:10:00] - Debugging sesión ID: 12345
+WARN  [2025-09-21 10:15:00] - Disco casi lleno: 95% ocupado
+INFO  [2025-09-21 10:20:00] - Sistema actualizado correctamente
+ERROR [2025-09-21 10:25:00] - Timeout en conexión FTP
+DEBUG [2025-09-21 10:30:00] - JSON recibido: {"user":"test","status":"ok"}
+INFO  [2025-09-21 10:35:00] - Archivo de logs archivado
+WARN  [2025-09-21 10:40:00] - Posible inconsistencia de datos detectada
+ERROR [2025-09-21 10:45:00] - Fallo en integración con API externa
+DEBUG [2025-09-21 10:50:00] - Iteración 5 completada sin errores
+INFO  [2025-09-21 10:55:00] - Usuario test logueado desde IP 192.168.1.10
+ERROR [2025-09-21 11:00:00] - Error de permisos al acceder al directorio /var/logs
+WARN  [2025-09-21 11:05:00] - Tiempo de respuesta superior a 2s
+DEBUG [2025-09-21 11:10:00] - Archivo temporal eliminado
