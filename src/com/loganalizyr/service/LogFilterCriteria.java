@@ -1,5 +1,7 @@
 package com.loganalizyr.service;
 
+import com.loganalizyr.model.KeywordCriteria;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,10 +10,10 @@ import java.util.List;
 
 public class LogFilterCriteria {
     List<String> levels;
-    List<String> keywords;
+    List<KeywordCriteria> keywords;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private boolean useRegex;
+
 
     public LogFilterCriteria() {
         this.levels = new ArrayList<>();
@@ -39,11 +41,11 @@ public class LogFilterCriteria {
         this.endDate = endDate;
     }
 
-    public List<String> getKeywords() {
+    public List<KeywordCriteria> getKeywords() {
         return keywords != null ? keywords : Collections.emptyList();
     }
 
-    public void setKeywords(List<String> keywords) {
+    public void setKeywords(List<KeywordCriteria> keywords) {
         this.keywords = keywords;
     }
 
@@ -53,14 +55,6 @@ public class LogFilterCriteria {
 
     public void setLevels(List<String> levels) {
         this.levels = levels;
-    }
-
-    public boolean isUseRegex() {
-        return useRegex;
-    }
-
-    public void setUseRegex(boolean useRegex) {
-        this.useRegex = useRegex;
     }
 
     public boolean hasLevels() {
