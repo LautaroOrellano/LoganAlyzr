@@ -1,6 +1,6 @@
-package com.loganalizyr.services;
+package com.loganalyzr.services;
 
-import com.loganalizyr.models.KeywordCriteria;
+import com.loganalyzr.models.KeywordCriteria;
 import enums.MatchMode;
 
 import java.time.LocalDateTime;

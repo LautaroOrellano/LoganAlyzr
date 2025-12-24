@@ -1,7 +1,7 @@
-package com.loganalizyr.collectors;
+package com.loganalyzr.collectors;
 
 
-import com.loganalizyr.models.LogEntry;
+import com.loganalyzr.models.LogEntry;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

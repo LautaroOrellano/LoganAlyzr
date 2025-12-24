@@ -1,4 +1,4 @@
-package com.loganalizyr.models;
+package com.loganalyzr.models;
 
 import java.time.LocalDateTime;
 
