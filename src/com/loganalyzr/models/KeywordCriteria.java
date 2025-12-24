@@ -1,6 +1,4 @@
-package com.loganalizyr.models;
-
-import enums.MatchMode;
+package com.loganalyzr.models;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

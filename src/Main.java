@@ -1,4 +1,4 @@
-import com.loganalizyr.cofigs.AppInitializer;
+import com.loganalyzr.cofigs.AppInitializer;
 
 public class Main {
     public static void main(String[] args) {

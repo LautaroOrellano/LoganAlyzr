@@ -1,7 +1,7 @@
-package com.loganalizyr.services.filterLog;
+package com.loganalyzr.services.filterLog;
 
-import com.loganalizyr.models.LogEntry;
-import com.loganalizyr.services.LogFilterCriteria;
+import com.loganalyzr.models.LogEntry;
+import com.loganalyzr.services.LogFilterCriteria;
 
 import java.util.List;
 

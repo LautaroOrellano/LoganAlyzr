@@ -1,10 +1,10 @@
-package com.loganalizyr.cofigs;
+package com.loganalyzr.cofigs;
 
-import com.loganalizyr.collectors.FileLogCollector;
-import com.loganalizyr.models.KeywordCriteria;
-import com.loganalizyr.models.LogEntry;
-import com.loganalizyr.services.LogFilterCriteria;
-import com.loganalizyr.services.filterLog.FilterLogsService;
+import com.loganalyzr.collectors.FileLogCollector;
+import com.loganalyzr.models.KeywordCriteria;
+import com.loganalyzr.models.LogEntry;
+import com.loganalyzr.services.LogFilterCriteria;
+import com.loganalyzr.services.filterLog.FilterLogsService;
 import enums.MatchMode;
 
 import java.time.LocalDateTime;
