@@ -1,4 +1,4 @@
-package enums;
+package com.loganalyzr.enums;
 
 public enum MatchMode {
     ANY,

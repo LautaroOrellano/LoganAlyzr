@@ -1,20 +1,19 @@
-package com.loganalyzr.services.filterLog;
+package com.loganalyzr.processing;
 
-import com.loganalyzr.models.LogEntry;
-import com.loganalyzr.services.LogFilterCriteria;
-import enums.MatchMode;
+import com.loganalyzr.models.LogEvent;
+import com.loganalyzr.enums.MatchMode;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FilterLogsService implements IFilterLogs {
+public class RuleEngine implements LogRule {
 
     /**
      * filtra los logs que contienen la palabra clave
      * @param logs lista de logs a filtrar
      * @return lista de logs filtradros
      */
-    public List<LogEntry> filterLogs(List<LogEntry> logs, LogFilterCriteria criteria) {
+    public boolean filterLogs(List<LogEvent> logs, FilterRules criteria) {
         return logs.stream()
                 .filter(log -> {
                     boolean matches = true;

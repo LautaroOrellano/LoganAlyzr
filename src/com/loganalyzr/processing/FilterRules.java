@@ -1,26 +1,26 @@
-package com.loganalyzr.services;
+package com.loganalyzr.processing;
 
 import com.loganalyzr.models.KeywordCriteria;
-import enums.MatchMode;
+import com.loganalyzr.enums.MatchMode;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LogFilterCriteria {
+public class FilterRules {
     List<String> levels;
     List<KeywordCriteria> keywords;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private MatchMode matchMode;
 
-    public LogFilterCriteria() {
+    public FilterRules() {
         this.levels = new ArrayList<>();
         this.keywords = new ArrayList<>();
     }
 
-    public LogFilterCriteria(LocalDateTime startDate, LocalDateTime endDate) {
+    public FilterRules(LocalDateTime startDate, LocalDateTime endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }

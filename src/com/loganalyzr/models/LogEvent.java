@@ -2,13 +2,13 @@ package com.loganalyzr.models;
 
 import java.time.LocalDateTime;
 
-public class LogEntry {
+public class LogEvent {
 
     private LocalDateTime timestamp;
     private String level;
     private String message;
 
-    public LogEntry(LocalDateTime timestamp, String level, String message) {
+    public LogEvent(LocalDateTime timestamp, String level, String message) {
         this.timestamp = timestamp;
         this.level = level;
         this.message = message;
