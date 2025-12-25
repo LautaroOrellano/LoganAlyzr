@@ -1,26 +1,25 @@
-package com.loganalyzr.processing;
+package com.loganalyzr.infrastructure.config.dto;
 
-import com.loganalyzr.models.KeywordCriteria;
-import com.loganalyzr.enums.MatchMode;
+import com.loganalyzr.core.model.MatchMode;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class FilterRules {
+public class FilterRulesDTO {
     List<String> levels;
-    List<KeywordCriteria> keywords;
+    List<KeywordCriteriaDTO> keywords;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private MatchMode matchMode;
 
-    public FilterRules() {
+    public FilterRulesDTO() {
         this.levels = new ArrayList<>();
         this.keywords = new ArrayList<>();
     }
 
-    public FilterRules(LocalDateTime startDate, LocalDateTime endDate) {
+    public FilterRulesDTO(LocalDateTime startDate, LocalDateTime endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -41,11 +40,11 @@ public class FilterRules {
         this.endDate = endDate;
     }
 
-    public List<KeywordCriteria> getKeywords() {
+    public List<KeywordCriteriaDTO> getKeywords() {
         return keywords != null ? keywords : Collections.emptyList();
     }
 
-    public void setKeywords(List<KeywordCriteria> keywords) {
+    public void setKeywords(List<KeywordCriteriaDTO> keywords) {
         this.keywords = keywords;
     }
 

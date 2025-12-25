@@ -1,17 +1,17 @@
-package com.loganalyzr.models;
+package com.loganalyzr.infrastructure.config.dto;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class KeywordCriteria {
+public class KeywordCriteriaDTO {
     private String keyword;
     private boolean useRegex;
     private boolean useLiteral;
     private boolean caseSensitive;
     private boolean useNegated;
 
-    public KeywordCriteria(String keyword, boolean useRegex, boolean useLiteral,
-                           boolean caseSensitive, boolean useNegated) {
+    public KeywordCriteriaDTO(String keyword, boolean useRegex, boolean useLiteral,
+                              boolean caseSensitive, boolean useNegated) {
         this.keyword = keyword;
         this.useRegex = useRegex;
         this.useLiteral = useLiteral;

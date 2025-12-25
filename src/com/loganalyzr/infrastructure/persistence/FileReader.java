@@ -1,7 +1,7 @@
-package com.loganalyzr.tailing;
+package com.loganalyzr.infrastructure.persistence;
 
 
-import com.loganalyzr.models.LogEvent;
+import com.loganalyzr.core.model.LogEvent;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,11 +1,11 @@
-package com.loganalyzr.agent;
+package com.loganalyzr.application;
 
-import com.loganalyzr.processing.FilterRules;
-import com.loganalyzr.tailing.FileReader;
-import com.loganalyzr.models.KeywordCriteria;
-import com.loganalyzr.models.LogEvent;
-import com.loganalyzr.processing.RuleEngine;
-import com.loganalyzr.enums.MatchMode;
+import com.loganalyzr.infrastructure.config.dto.FilterRulesDTO;
+import com.loganalyzr.infrastructure.persistence.FileReader;
+import com.loganalyzr.infrastructure.config.dto.KeywordCriteriaDTO;
+import com.loganalyzr.core.model.LogEvent;
+import com.loganalyzr.core.service.RuleEngine;
+import com.loganalyzr.core.model.MatchMode;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,9 +15,9 @@ public class Agent {
     private final FileReader collector;
     private final RuleEngine filterService;
 
-    KeywordCriteria keyword1 = new KeywordCriteria("desconectado", false,
+    KeywordCriteriaDTO keyword1 = new KeywordCriteriaDTO("desconectado", false,
             true, false, false);
-    KeywordCriteria keyword2 = new KeywordCriteria("usuario", false,
+    KeywordCriteriaDTO keyword2 = new KeywordCriteriaDTO("usuario", false,
             true, false, true);
 
     public Agent() {
@@ -35,7 +35,7 @@ public class Agent {
                 return;
             }
 
-            FilterRules criteria = new FilterRules();
+            FilterRulesDTO criteria = new FilterRulesDTO();
             criteria.setStartDate(LocalDateTime.of(2025, 9, 1, 0, 0));
             criteria.setEndDate(LocalDateTime.of(2025, 9 ,  21, 23, 59));
             criteria.setMatchMode(MatchMode.ALL);
