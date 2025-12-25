@@ -20,7 +20,7 @@ DEBUG [2025-09-21 09:45:00] - Variables temporales: x=10, y=20
 INFO  [2025-09-21 09:50:00] - Tarea programada ejecutada correctamente
 ERROR [2025-09-21 09:55:00] - Fallo al enviar correo electrónico
 INFO  [2025-09-21 10:00:00] - Usuario admin desconectado
-ERROR [2025-09-21 10:05:00] - Error crítico: NullPointerException en com.loganalyzr.Main.java:45
+ERROR [2025-09-21 10:05:00] - Error crítico: NullPointerException en com.loganalyzr.application.Main.java:45
 DEBUG [2025-09-21 10:10:00] - Debugging sesión ID: 12345
 WARN  [2025-09-21 10:15:00] - Disco casi lleno: 95% ocupado
 INFO  [2025-09-21 10:20:00] - Sistema actualizado correctamente
