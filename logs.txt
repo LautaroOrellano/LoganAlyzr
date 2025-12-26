@@ -34,3 +34,4 @@ INFO  [2025-09-21 10:55:00] - Usuario test logueado desde IP 192.168.1.10
 ERROR [2025-09-21 11:00:00] - Error de permisos al acceder al directorio /var/logs
 WARN  [2025-12-21 11:05:00] - Tiempo de respuesta superior a 2s
 DEBUG [2025-12-21 11:10:00] - Archivo temporal eliminado
+INFO  [2025-12-21 12:55:00] - Usuario test logueado desde IP 192.168.1.10
