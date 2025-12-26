@@ -8,44 +8,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class FilterRulesDTO {
-    List<String> levels;
-    List<KeywordCriteriaDTO> keywords;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private List<String> levels;
+    private List<KeywordCriteriaDTO> keywords;
+    private DateRangeDTO dateRange;
     private MatchMode matchMode;
 
     public FilterRulesDTO() {
-        this.levels = new ArrayList<>();
-        this.keywords = new ArrayList<>();
-    }
-
-    public FilterRulesDTO(LocalDateTime startDate, LocalDateTime endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
-
-    public List<KeywordCriteriaDTO> getKeywords() {
-        return keywords != null ? keywords : Collections.emptyList();
-    }
-
-    public void setKeywords(List<KeywordCriteriaDTO> keywords) {
-        this.keywords = keywords;
     }
 
     public List<String> getLevels() {
@@ -56,12 +24,28 @@ public class FilterRulesDTO {
         this.levels = levels;
     }
 
+    public List<KeywordCriteriaDTO> getKeywords() {
+        return keywords != null ? keywords : Collections.emptyList();
+    }
+
+    public void setKeywords(List<KeywordCriteriaDTO> keywords) {
+        this.keywords = keywords;
+    }
+
     public MatchMode getMatchMode() {
-        return matchMode;
+        return matchMode != null ? matchMode : matchMode.ALL;
     }
 
     public void setMatchMode(MatchMode matchMode) {
         this.matchMode = matchMode;
+    }
+
+    public DateRangeDTO getDateRange() {
+        return dateRange;
+    }
+
+    public void setDateRange(DateRangeDTO dateRange) {
+        this.dateRange = dateRange;
     }
 
     public boolean hasLevels() {
@@ -70,5 +54,10 @@ public class FilterRulesDTO {
 
     public boolean hasKeywords() {
         return keywords != null && !keywords.isEmpty();
+    }
+
+    public boolean hasDateRange() {
+        return dateRange != null &&
+                (dateRange.getStart() != null || dateRange.getEnd() != null);
     }
 }
