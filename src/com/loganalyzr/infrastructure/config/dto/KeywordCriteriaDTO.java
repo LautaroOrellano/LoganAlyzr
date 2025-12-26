@@ -58,29 +58,4 @@ public class KeywordCriteriaDTO {
     public void setUseNegated(boolean useNegated) {
         this.useNegated = useNegated;
     }
-
-    public boolean matches(String logMessage) {
-        boolean matchs = false;
-        if (logMessage == null || logMessage.isEmpty()) {
-            return false;
-        }
-
-        if (isUseLiteral()) {
-            if (isCaseSensitive()) {
-                matchs = logMessage.contains(keyword);
-            } else {
-                matchs = logMessage.toLowerCase().contains(keyword.toLowerCase());
-            }
-        } else if (isUseRegex()) {
-            int flags = isCaseSensitive() ? 0 : Pattern.CASE_INSENSITIVE;
-            Pattern pattern = Pattern.compile(keyword, flags);
-            Matcher matcher = pattern.matcher(logMessage);
-            matchs = matcher.find();
-        }
-
-        if (isUseNegated()) {
-            matchs = !matchs;
-        }
-        return matchs;
-    }
 }
