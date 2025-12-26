@@ -1,6 +1,7 @@
 package com.loganalyzr.application;
 
 import com.loganalyzr.core.ports.LogRule;
+import com.loganalyzr.core.ports.LogSource;
 import com.loganalyzr.core.service.RuleEngine;
 import com.loganalyzr.infrastructure.config.dto.FilterRulesDTO;
 import com.loganalyzr.infrastructure.config.mapper.RuleFactory;
@@ -16,21 +17,18 @@ import java.util.List;
 
 public class Agent {
 
-    private final FileReader collector;
+    private final LogSource logSource;
 
-    public Agent() {
-        this.collector = new FileReader();
+    public Agent(LogSource logSource) {
+        this.logSource = logSource;
     }
 
     public void run() {
         try {
-            String filePath = "C:/Users/NoxiePC/Desktop/Programacion/LoganAnalyzr/LoganAlyzr/logs.txt";
-
-            List<LogEvent> logs = collector.loadLogs(filePath, 1, 500);
+            List<LogEvent> logs = logSource.fetchNewLogs();
 
             if (logs.isEmpty()) {
-                System.out.println("No se encontro logs en el archivo.");
-                return;
+                System.out.println("No se encontraron logs nuevos.");
             }
 
             FilterRulesDTO config = new FilterRulesDTO();
@@ -67,6 +65,7 @@ public class Agent {
             RuleEngine engine = new RuleEngine(rules, config.getMatchMode());
 
             List<LogEvent> filteredLogs = new ArrayList<>();
+
             for (LogEvent log: logs) {
                 if (engine.matches(log)) {
                     filteredLogs.add(log);
@@ -74,7 +73,7 @@ public class Agent {
             }
 
             if (filteredLogs.isEmpty()) {
-                System.out.println("No se encontraron logs que coincidan los criterios de busqueda.");
+                System.out.println("No se encontraron logs que coincidan con los criterios de busqueda.");
             } else {
                 System.out.println("=== RESULTADO DEL FILTRO ===");
                 for (LogEvent log : filteredLogs) {
