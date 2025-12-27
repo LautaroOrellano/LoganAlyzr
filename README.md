@@ -4,11 +4,11 @@
 
 ---
 
-## 🚀 Visión del Proyecto
+## Visión del Proyecto
 
 El problema con los sistemas de logs tradicionales es el ruido: gigabytes de texto donde es difícil encontrar errores críticos. Desarrollé **LoganAlyzr** para solucionar esto mediante un enfoque de "escucha activa". No se trata solo de leer archivos, sino de entender su estructura (ya sea JSON o Texto plano) y aplicar un motor de reglas flexible que detecte anomalías, errores o patrones específicos de negocio sin necesidad de recompilar el código.
 
-## ✨ Características Principales
+## Características Principales
 
 * **Ingesta Polimórfica:** Capacidad para procesar múltiples formatos de logs simultáneamente gracias a una arquitectura basada en interfaces (`LogSource`).
     * Soporte nativo para **JSON Logs** (NDJSON) utilizando la librería Jackson para un parsing de alto rendimiento.
@@ -17,7 +17,7 @@ El problema con los sistemas de logs tradicionales es el ruido: gigabytes de tex
 * **Motor de Reglas (En desarrollo):** Configuración externa vía JSON para definir criterios de alerta (Niveles de severidad, Keywords, Rangos de fecha).
 * **Arquitectura Hexagonal:** El núcleo del dominio está aislado de la infraestructura, permitiendo cambiar el origen de los datos o el destino de las alertas sin afectar la lógica de negocio.
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 * **Lenguaje:** Java 17+
 * **Core:** Diseño Orientado a Objetos (OOP), SOLID Principles.
@@ -26,7 +26,7 @@ El problema con los sistemas de logs tradicionales es el ruido: gigabytes de tex
     * `java.util.regex`: Para el análisis de patrones en texto no estructurado.
 * **Gestión de Dependencias:** Maven/Gradle (Ajustar según corresponda).
 
-## ⚙️ Arquitectura y Diseño
+## Arquitectura y Diseño
 
 El proyecto sigue una estructura de **Puertos y Adaptadores**:
 
@@ -38,7 +38,7 @@ El proyecto sigue una estructura de **Puertos y Adaptadores**:
 [ File System ] --> [ JsonLogReader ] --( implements )--> [ LogSource ] --> [ Agent ]
 ```
 
-## 📋 Configuración (Preview)
+## Configuración (Preview)
 El sistema utiliza un archivo rules.json para definir dinámicamente qué buscar. Ejemplo de la estructura soportada:
 
 ```
@@ -55,7 +55,7 @@ JSON
   ]
 }
 ```
-ROADMAP 📅
+## ROADMAP 
 El desarrollo de LoganAlyzr es iterativo. Los próximos hitos incluyen:
 
 [x] Lectura eficiente de archivos (Text & JSON).
@@ -70,5 +70,5 @@ El desarrollo de LoganAlyzr es iterativo. Los próximos hitos incluyen:
 
 [ ] Dockerización: Empaquetado del agente para despliegue en contenedores.
 
-## ✒️ Autor
+## Autor
 Lautaro - Lead Developer Desarrollador de software enfocado en soluciones backend robustas y arquitecturas limpias.
