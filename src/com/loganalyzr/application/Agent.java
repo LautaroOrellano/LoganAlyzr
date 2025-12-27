@@ -5,15 +5,16 @@ import com.loganalyzr.core.ports.LogSource;
 import com.loganalyzr.core.service.RuleEngine;
 import com.loganalyzr.infrastructure.config.dto.FilterRulesDTO;
 import com.loganalyzr.infrastructure.config.mapper.RuleFactory;
-import com.loganalyzr.infrastructure.persistence.FileReader;
 import com.loganalyzr.infrastructure.config.dto.KeywordCriteriaDTO;
 import com.loganalyzr.infrastructure.config.dto.DateRangeDTO;
 import com.loganalyzr.core.model.LogEvent;
 import com.loganalyzr.core.model.MatchMode;
+import com.loganalyzr.infrastructure.persistence.ConfigLoader;
 
-import java.time.LocalDateTime;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Filter;
 
 public class Agent {
 
@@ -25,64 +26,51 @@ public class Agent {
 
     public void run() {
         try {
-            List<LogEvent> logs = logSource.fetchNewLogs();
+            System.out.println(">>> Iniciando LoganAlyzr Agent...");
+            ConfigLoader configLoader = new ConfigLoader();
+            FilterRulesDTO config = configLoader.loadConfig("rules.json");
 
-            if (logs.isEmpty()) {
-                System.out.println("No se encontraron logs nuevos.");
+            if (config == null) {
+                System.out.println("Error: No se pudo cargar la configuración.");
+                return;
             }
-
-            FilterRulesDTO config = new FilterRulesDTO();
-            config.setMatchMode(MatchMode.ALL);
-            config.setLevels(List.of("ERROR", "INFO"));
-
-            KeywordCriteriaDTO k1 = new KeywordCriteriaDTO(
-                    "desconectado",
-                    false,
-                    true,
-                    false,
-                    false
-            );
-            KeywordCriteriaDTO k2 = new KeywordCriteriaDTO(
-                    "usuario",
-                    false,
-                    true,
-                    false,
-                    true
-            );
-
-            config.setKeywords(List.of(k1, k2));
-
-            DateRangeDTO dateRange = new DateRangeDTO();
-            dateRange.setStart("2025-09-01T00:00:00");
-            dateRange.setEnd("2025-09-21T23:59:00");
-            config.setDateRange(dateRange);
+            System.out.printf("Configuración cargada correctamente");
 
             RuleFactory factory = new RuleFactory();
             List<LogRule> rules = factory.createRules(config);
 
-            System.out.println("Se crearon " + rules.size() +" reglas de filtrado.");
-
             RuleEngine engine = new RuleEngine(rules, config.getMatchMode());
 
-            List<LogEvent> filteredLogs = new ArrayList<>();
+            System.out.println(
+                    "Motor iniciado con " + rules.size()  + " regalas activas (Modo: " + config.getMatchMode() + ")"
+            );
 
-            for (LogEvent log: logs) {
+            List<LogEvent> logs = logSource.fetchNewLogs();
+
+            if (logs.isEmpty()) {
+                System.out.println("No se encontraron logs nuevos para procesar.");
+                return;
+            }
+            System.out.println("Procesando " + logs.size() + " eventos recibidos...");
+
+            List<LogEvent> alerts = new ArrayList<>();
+            for (LogEvent log :logs) {
                 if (engine.matches(log)) {
-                    filteredLogs.add(log);
+                    alerts.add(log);
                 }
             }
 
-            if (filteredLogs.isEmpty()) {
-                System.out.println("No se encontraron logs que coincidan con los criterios de busqueda.");
+            if (alerts.isEmpty()) {
+                System.out.println("Estado ok. Ningún log disparó las alertas configuradas");
             } else {
-                System.out.println("=== RESULTADO DEL FILTRO ===");
-                for (LogEvent log : filteredLogs) {
-                    System.out.println(log);
+                System.out.println("¡ALERTA!: Se dectectaron " + alerts.size() + " eventos críticos:");
+                for (LogEvent alert: alerts) {
+                    System.out.println("  -> " + alert);
                 }
             }
 
         } catch (Exception e) {
-            System.err.println("Error inesperado: " + e.getMessage());
+            System.err.println("Error crítico durante la ejecución del Agente: " + e.getMessage());
             e.printStackTrace();
         }
     }
