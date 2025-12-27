@@ -55,3 +55,20 @@ JSON
   ]
 }
 ```
+ROADMAP 📅
+El desarrollo de LoganAlyzr es iterativo. Los próximos hitos incluyen:
+
+[x] Lectura eficiente de archivos (Text & JSON).
+
+[x] Parsing y normalización de eventos.
+
+[ ] Implementación del Rule Engine: Integración completa del archivo de configuración JSON para filtrado avanzado.
+
+[ ] Sistema de Notificaciones: Adaptadores de salida para enviar alertas vía Email/Slack/Webhook.
+
+[ ] Persistencia: Opción para guardar logs filtrados en base de datos.
+
+[ ] Dockerización: Empaquetado del agente para despliegue en contenedores.
+
+✒️ Autor
+Lautaro - Lead Developer Desarrollador de software enfocado en soluciones backend robustas y arquitecturas limpias.
