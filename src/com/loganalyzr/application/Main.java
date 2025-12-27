@@ -6,20 +6,24 @@ import com.loganalyzr.infrastructure.persistence.SmartFileReader;
 
 public class Main {
     public static void main(String[] args) {
-        //String path = "logs.txt";
+        LogSource source;
+
+        // --- OPCIÓN 1: Usar Logs de Texto (.txt) ---
+        // String path = "logs.txt";
+        // source = new TextLogReader(path);
+
+        // --- OPCIÓN 2: Usar Logs JSON (.jsonl) ---
+        // (Asegúrate de que logs.jsonl exista en la raíz)
         String path = "logs.jsonl";
+        source = new JsonLogReader(path);
 
-        //String logRegex = "(?<level>\\w+)\\s+\\[(?<date>.*?)\\]\\s+-\\s+(?<message>.*)";
-        //String dateFormat = "yyyy-MM-dd HH:mm:ss";
+        // --- INYECCIÓN DE DEPENDENCIA ---
+        // Aquí ocurre la magia: El Agente acepta cualquiera de los dos
+        Agent agent = new Agent(source);
 
-        //SmartFileReader fileReader = new SmartFileReader(path, logRegex, dateFormat);
+        System.out.println("Agente configurado con estrategia: " + source.getClass().getSimpleName());
 
-        LogSource fileReader = new JsonLogReader(path);
-
-        Agent agent = new Agent(fileReader);
-
-        System.out.println("Iniciando agent ...");
+        // --- EJECUCIÓN ---
         agent.run();
     }
-
 }
