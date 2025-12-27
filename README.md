@@ -36,3 +36,19 @@ El proyecto sigue una estructura de **Puertos y Adaptadores**:
 
 ```text
 [ File System ] --> [ JsonLogReader ] --( implements )--> [ LogSource ] --> [ Agent ]
+
+## 📋 Configuración (Preview)
+El sistema utiliza un archivo rules.json para definir dinámicamente qué buscar. Ejemplo de la estructura soportada:
+
+JSON
+
+{
+  "matchMode": "ANY",
+  "levels": ["ERROR", "FATAL"],
+  "keywords": [
+    {
+      "keyword": "database connection",
+      "caseSensitive": false
+    }
+  ]
+}
