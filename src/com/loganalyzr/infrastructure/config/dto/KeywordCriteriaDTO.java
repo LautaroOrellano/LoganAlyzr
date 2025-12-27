@@ -10,6 +10,9 @@ public class KeywordCriteriaDTO {
     private boolean caseSensitive;
     private boolean useNegated;
 
+    public KeywordCriteriaDTO() {
+    }
+
     public KeywordCriteriaDTO(String keyword, boolean useRegex, boolean useLiteral,
                               boolean caseSensitive, boolean useNegated) {
         this.keyword = keyword;
