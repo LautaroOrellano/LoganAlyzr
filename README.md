@@ -70,5 +70,5 @@ El desarrollo de LoganAlyzr es iterativo. Los próximos hitos incluyen:
 
 [ ] Dockerización: Empaquetado del agente para despliegue en contenedores.
 
-# ✒️ Autor
-Lautaro - Lead Developer Desarrollador de software enfocado en soluciones backend robustas y arquitecturas limpias.
+### ✒️ Autor
+### Lautaro - Lead Developer Desarrollador de software enfocado en soluciones backend robustas y arquitecturas limpias.
