@@ -24,7 +24,13 @@ public class RuleFactory {
 
         if (dto.hasKeywords()) {
             dto.getKeywords().stream()
-                    .map(k -> new KeywordRule(k.getKeyword(), k.isUseRegex(), k.isCaseSensitive()))
+                    .map(k -> new KeywordRule(
+                            k.getKeyword(),
+                            k.isUseRegex(),
+                            k.isUseLiteral(),
+                            k.isCaseSensitive(),
+                            k.isUseNegated()
+                    ))
                     .forEach(rules::add);
         }
 
@@ -33,12 +39,15 @@ public class RuleFactory {
                 String start = dto.getDateRange().getStart();
                 String end = dto.getDateRange().getEnd();
 
-                LocalDateTime newStart = (start != null) ? LocalDateTime.parse(start) : null;
-                LocalDateTime newEnd = (end != null) ? LocalDateTime.parse(end): null;
+                LocalDateTime newStart = (start != null && !start.isBlank()) ? LocalDateTime.parse(start) : null;
+                LocalDateTime newEnd = (end != null && !end.isBlank()) ? LocalDateTime.parse(end): null;
 
-                rules.add(new DateRangeRule(newStart, newEnd));
+                if (newStart != null || newEnd != null) {
+                    rules.add(new DateRangeRule(newStart, newEnd));
+                }
 
             } catch (DateTimeParseException e) {
+                System.err.println("Error config fechas: " + e.getMessage());
                 throw new IllegalArgumentException("Formato de fecha inválido. Use ISO-8601 (ej: 2025-12-01T10:00:00)");
             }
         }
