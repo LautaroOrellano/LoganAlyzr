@@ -4,6 +4,9 @@ public class DateRangeDTO {
     private String start;
     private String end;
 
+    public DateRangeDTO() {
+    }
+
     public String getStart() {
         return start;
     }
