@@ -31,4 +31,9 @@ public class DateRangeRule implements LogRule {
         }
         return true;
     }
+
+    @Override
+    public boolean isMandatory() {
+        return true;
+    }
 }

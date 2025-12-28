@@ -18,7 +18,7 @@ public class RuleEngine {
         this.matchMode = matchMode;
 
         for (LogRule rule : rules) {
-            if (rule instanceof DateRangeRule || rule instanceof LevelRule) {
+            if (rule.isMandatory()) {
                 mandatoryRules.add(rule);
             } else {
                 flexibleRules.add(rule);
