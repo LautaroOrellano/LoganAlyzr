@@ -41,6 +41,11 @@ public class KeywordRule implements LogRule {
         return useNegated ? !found : found;
     }
 
+    @Override
+    public boolean isMandatory() {
+        return false;
+    }
+
     private boolean checkMatch(String message) {
         if (useRegex) {
             return pattern.matcher(message). find();

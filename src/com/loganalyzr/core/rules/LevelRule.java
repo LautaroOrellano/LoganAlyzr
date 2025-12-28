@@ -23,4 +23,9 @@ public class LevelRule implements LogRule {
 
         return allowedLevels.contains(event.getLevel().toUpperCase());
     }
+
+    @Override
+    public boolean isMandatory() {
+        return true;
+    }
 }
