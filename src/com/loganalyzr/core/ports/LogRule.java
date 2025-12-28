@@ -6,4 +6,6 @@ public interface LogRule {
 
      boolean test(LogEvent event);
 
+     boolean isMandatory();
+
 }
