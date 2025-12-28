@@ -1,6 +1,7 @@
 package com.loganalyzr.infrastructure.persistence;
 
 
+import com.loganalyzr.core.exception.LogReadException;
 import com.loganalyzr.core.model.LogEvent;
 import com.loganalyzr.core.ports.LogRule;
 import com.loganalyzr.core.ports.LogSource;
@@ -73,7 +74,7 @@ public class TextLogReader implements LogSource {
                 linesRead++;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new LogReadException("Error leyendo el archivo en indicado.", e);
         }
         return logs;
     }

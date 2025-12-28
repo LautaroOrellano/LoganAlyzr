@@ -2,6 +2,7 @@ package com.loganalyzr.infrastructure.persistence;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.loganalyzr.core.exception.LogReadException;
 import com.loganalyzr.core.model.LogEvent;
 import com.loganalyzr.core.ports.LogSource;
 
@@ -41,7 +42,7 @@ public class JsonLogReader implements LogSource {
             }
             this.lastBytePosition = raf.getFilePointer();
         } catch (Exception e) {
-            System.err.println("Error leyendo JSON: " + e.getMessage());
+            throw new LogReadException("Error leyendo JSON", e);
         }
         return newLogs;
     }

@@ -1,8 +1,10 @@
 package com.loganalyzr.infrastructure.persistence;
 
+import com.loganalyzr.core.exception.LogReadException;
 import com.loganalyzr.core.model.LogEvent;
 import com.loganalyzr.core.ports.LogSource;
 
+import java.awt.*;
 import java.io.RandomAccessFile;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,7 +45,7 @@ public class SmartFileReader implements LogSource {
             }
             this.lastBytePosition = raf.getFilePointer();
         } catch (Exception e) {
-            System.err.println("Error leyendo archivo: " + e.getMessage());
+            throw new LogReadException("Error leyendo archivo", e);
         }
         return newLogs;
     }
