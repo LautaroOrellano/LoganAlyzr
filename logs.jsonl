@@ -2,4 +2,5 @@
 {"timestamp": "2025-12-26T10:16:05", "level": "DEBUG", "message": "Conectando con la base de datos..."}
 {"timestamp": "2025-12-26T10:18:22", "level": "WARN", "message": "El tiempo de respuesta es superior a 500ms."}
 {"timestamp": "2025-12-26T10:20:00", "level": "ERROR", "message": "Fallo crítico: No se pudo conectar al puerto 8080."}
+{"timestamp": "2025-12-26T10:20:00", "level": "ERROR", "message": "Fallo crítico: No se pudo conectar al puerto 8080."}
 {"level": "INFO", "message": "Este log no tiene fecha, debe usar la fecha actual por defecto."}
