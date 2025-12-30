@@ -1,5 +1,6 @@
 package com.loganalyzr.application;
 
+import com.loganalyzr.application.pipeline.LogPipeline;
 import com.loganalyzr.core.exception.LogReadException;
 import com.loganalyzr.core.ports.LogRule;
 import com.loganalyzr.core.ports.LogSource;
@@ -27,7 +28,7 @@ public class Agent {
 
     public void run() {
         try {
-            System.out.println(">>> Iniciando LoganAlyzr Agent...");
+            System.out.println(">>> Iniciando LoganAlyzr Agent (Modo Enterprise)...");
 
             // -- Configuración --
             ConfigLoader configLoader = new ConfigLoader();
@@ -42,22 +43,17 @@ public class Agent {
             List<LogRule> rules = factory.createRules(config);
             RuleEngine engine = new RuleEngine(rules, config.getMatchMode());
 
-            // -- Ingesta --
-            List<LogEvent> logs = logSource.fetchNewLogs();
-            if (logs.isEmpty()) {
-                System.out.println("No se encontraron logs nuevos para procesar.");
-                return;
-            }
+            LogPipeline pipeline = new LogPipeline(logSource, engine, publisher);
 
-            // --- FILTRADO ---
-            List<LogEvent> alerts = new ArrayList<>();
-            for (LogEvent log :logs) {
-                if (engine.matches(log)) {
-                    alerts.add(log);
-                }
-            }
+            pipeline.start();
 
-            publisher.publish(alerts);
+            System.out.println("Agente corriendo en segundo plano. Presione Ctrl+C para detener.");
+            try {
+                Thread.currentThread().join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Agente detenido.");
+            }
 
         } catch (LogReadException e) {
             System.err.println("ERROR DE E/S: No se pudieron leer los logs.");
