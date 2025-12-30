@@ -29,6 +29,10 @@ public class JsonLogReader implements LogSource {
         List<LogEvent> newLogs = new ArrayList<>();
 
         try (RandomAccessFile raf = new RandomAccessFile(filePath, "r")) {
+            long fileLength = raf.length();
+            if (fileLength < lastBytePosition) {
+                lastBytePosition = 0;
+            }
             raf.seek(lastBytePosition);
             String line;
 

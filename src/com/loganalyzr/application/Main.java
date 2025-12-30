@@ -8,11 +8,28 @@ import com.loganalyzr.infrastructure.ui.ConsoleReporter;
 
 public class Main {
     public static void main(String[] args) {
-        LogSource source = new JsonLogReader("logs.jsonl");
-        ReportPublisher reporter = new ConsoleReporter();
+        String filePath = "logs.jsonl";
+        if (args.length > 0) {
+            filePath = args[0];
+        } else {
+            System.out.println("No se especificó archivo. Usando por defecto 'logs.jsonl'");
+        }
 
-        Agent agent = new Agent(source, reporter);
+        try {
+            LogSource source = new JsonLogReader(filePath);
+            ReportPublisher reporter = new ConsoleReporter();
 
-        agent.run();
+            System.out.println("Iniciando Log Analyzer con el archivo: " + filePath);
+            Agent agent = new Agent(source, reporter);
+
+            agent.run();
+
+            System.out.println("Análisis completado.");
+
+        } catch (Exception e) {
+            System.err.println("Error fatal: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 }
