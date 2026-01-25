@@ -2,7 +2,8 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-.idea/msic.xml
+.idea/
+*.iml
 
 ### Eclipse ###
 .apt_generated
@@ -28,3 +29,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Paquete ###
+target/
+
+### Shade Pluning ###
+dependency-reduced-pom.xml
