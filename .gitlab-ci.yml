@@ -1,0 +1,38 @@
+stages:
+  - build
+  - test
+  - docker
+  - deploy
+
+build:
+  stage: build
+  image: maven:3.9.0-jdk-17
+  script:
+    - mvn clean package
+  artifacts:
+    paths:
+      - target/*.jar
+
+test:
+  stage: test
+  image: mvm:3.9.0-jdk-17
+  script:
+    - mvn test
+
+docker:
+  stage: docker
+  image: docker:24
+  services:
+    - docker:24-dind
+  script:
+    - docker build -t gcr.io/
+    - docker push gcr.io/
+
+deploy:
+  stage: deploy
+  image: google/cloud-sdk:latest
+  script:
+    - gcloud auth activate-service-account --key-file=$GCP_SERVICE_KEY
+    - gcloud container cluster get-credentials loganalyzer-cluster --region us-central1
+    - kubectl apply -f k8s/deployment.yaml
+    - kubectl apply -f k8s/service.yaml
