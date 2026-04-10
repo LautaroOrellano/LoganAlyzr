@@ -1,5 +1,6 @@
 package com.loganalyzr.core.rules;
 
+import com.loganalyzr.core.model.EventType;
 import com.loganalyzr.core.model.LogEvent;
 import com.loganalyzr.core.ports.LogRule;
 
@@ -35,5 +36,15 @@ public class DateRangeRule implements LogRule {
     @Override
     public boolean isMandatory() {
         return true;
+    }
+
+    /**
+     * DateRangeRule es un filtro temporal (mandatory), no un clasificador de eventos.
+     * Las reglas mandatory descartan logs; no emiten eventos propios.
+     * UNKNOWN es el valor sentinel para reglas de este tipo.
+     */
+    @Override
+    public EventType eventType() {
+        return EventType.UNKNOWN;
     }
 }

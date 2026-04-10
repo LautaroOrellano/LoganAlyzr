@@ -1,5 +1,6 @@
 package com.loganalyzr.core.rules;
 
+import com.loganalyzr.core.model.EventType;
 import com.loganalyzr.core.model.LogEvent;
 import com.loganalyzr.core.ports.LogRule;
 
@@ -27,5 +28,10 @@ public class LevelRule implements LogRule {
     @Override
     public boolean isMandatory() {
         return true;
+    }
+
+    @Override
+    public EventType eventType() {
+        return EventType.ERROR_SPIKE;
     }
 }
