@@ -1,8 +1,14 @@
 package com.loganalyzr.application.pipeline;
 
+import com.loganalyzr.application.ActionExecutor;
+import com.loganalyzr.application.AgentMetrics;
+import com.loganalyzr.application.EngineRegistry;
+import com.loganalyzr.core.model.Event;
 import com.loganalyzr.core.model.LogEvent;
+import com.loganalyzr.core.ports.Action;
 import com.loganalyzr.core.ports.LogSource;
 import com.loganalyzr.core.ports.ReportPublisher;
+import com.loganalyzr.core.service.DecisionEngine;
 import com.loganalyzr.core.service.RuleEngine;
 
 import java.util.List;
@@ -11,15 +17,23 @@ import java.util.concurrent.*;
 public class LogPipeline {
     private final BlockingQueue<LogEvent> queue;
     private final LogSource logSource;
-    private final RuleEngine ruleEngine;
+    private final EngineRegistry engineRegistry;  // lee engines en cada processLog() para hot-reload
+    private final ActionExecutor actionExecutor;
     private final ReportPublisher publisher;
+    private final AgentMetrics metrics;
     private final ExecutorService workerPool;
     private volatile boolean isRunning = false;
 
-    public LogPipeline(LogSource logSource, RuleEngine ruleEngine, ReportPublisher publisher) {
-        this.logSource = logSource;
-        this.ruleEngine = ruleEngine;
-        this.publisher = publisher;
+    public LogPipeline(LogSource logSource,
+                       EngineRegistry engineRegistry,
+                       ActionExecutor actionExecutor,
+                       ReportPublisher publisher,
+                       AgentMetrics metrics) {
+        this.logSource      = logSource;
+        this.engineRegistry = engineRegistry;
+        this.actionExecutor = actionExecutor;
+        this.publisher      = publisher;
+        this.metrics        = metrics;
 
         /*
             Si el procesamiento se atrasa, la ingestion se frena automaticamente.
@@ -87,10 +101,34 @@ public class LogPipeline {
 
     private void processLog(LogEvent log) {
         try {
-            if (ruleEngine.matches(log)){
-                publisher.publish(List.of(log));
+            metrics.incrementLogsEvaluated();
+
+            // Leer engines del registry en cada invocación.
+            // Si hubo un hot-reload entre este log y el anterior,
+            // aquí ya se usa la nueva configuración.
+            RuleEngine    ruleEngine    = engineRegistry.getRuleEngine();
+            DecisionEngine decisionEngine = engineRegistry.getDecisionEngine();
+
+            // 1. Detectar eventos semánticos en el log.
+            List<Event> events = ruleEngine.evaluate(log);
+
+            if (events.isEmpty()) {
+                metrics.incrementLogsDiscarded();
+                return;
             }
-        } catch (Exception e){
+
+            metrics.addEventsDetected(events.size());
+
+            // 2. Publicar eventos detectados (auditoría / reporting).
+            publisher.publish(events);
+
+            // 3. Para cada evento, decidir y ejecutar acciones en orden.
+            for (Event event : events) {
+                List<Action> actions = decisionEngine.decide(event);
+                actionExecutor.execute(actions, event);
+            }
+        } catch (Exception e) {
+            metrics.incrementProcessingErrors();
             System.err.println("Error procesando log: " + e.getMessage());
         }
     }

@@ -1,0 +1,35 @@
+{
+  "rules": [
+    {
+      "eventType": "ERROR_SPIKE",
+      "actions": [
+        { "type": "LOG" },
+        {
+          "type": "HTTP_ALERT",
+          "config": {
+            "url": "http://localhost:9000/alerts",
+            "timeoutSeconds": 1
+          }
+        }
+      ],
+      "cooldownSeconds": 0,
+      "enabled": true
+    },
+    {
+      "eventType": "HIGH_LATENCY",
+      "actions": [
+        { "type": "LOG" }
+      ],
+      "cooldownSeconds": 0,
+      "enabled": true
+    },
+    {
+      "eventType": "SECURITY_PATTERN",
+      "actions": [
+        { "type": "LOG" }
+      ],
+      "cooldownSeconds": 0,
+      "enabled": false
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 package com.loganalyzr.core.rules;
 
+import com.loganalyzr.core.model.EventType;
 import com.loganalyzr.core.model.LogEvent;
 import com.loganalyzr.core.ports.LogRule;
 
-import java.sql.Struct;
 import java.util.regex.Pattern;
 
 public class KeywordRule implements LogRule {
@@ -44,6 +44,11 @@ public class KeywordRule implements LogRule {
     @Override
     public boolean isMandatory() {
         return false;
+    }
+
+    @Override
+    public EventType eventType() {
+        return EventType.HIGH_LATENCY;
     }
 
     private boolean checkMatch(String message) {

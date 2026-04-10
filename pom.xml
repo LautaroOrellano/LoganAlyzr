@@ -14,17 +14,31 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.2</junit.version>
     </properties>
 
     <dependencies>
+
+        <!-- JSON parsing: logs + config -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.17.1</version>
         </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
+        <!-- Tests ubicados en test/ (no-standard, estructura actual del proyecto) -->
+        <testSourceDirectory>test</testSourceDirectory>
         <finalName>loganalyzer</finalName>
 
         <plugins>
@@ -37,6 +51,21 @@
                 <configuration>
                     <source>17</source>
                     <target>17</target>
+                </configuration>
+            </plugin>
+
+            <!-- TEST RUNNER — JUnit Jupiter (Platform) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <!-- Imprime resultados en consola directamente (sin -Dsurefire.useFile=false) -->
+                    <useFile>false</useFile>
+                    <reportFormat>plain</reportFormat>
                 </configuration>
             </plugin>
 
