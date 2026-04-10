@@ -1,0 +1,12 @@
+{"timestamp":"2025-06-15T10:28:00","level":"INFO","message":"Sistema iniciado. Conectando a base de datos..."}
+{"timestamp":"2025-06-15T10:29:00","level":"INFO","message":"Healthcheck OK. Todos los servicios responden."}
+{"timestamp":"2025-06-15T10:30:00","level":"ERROR","message":"No se puede conectar al nodo primario de Redis"}
+{"timestamp":"2025-06-15T10:31:00","level":"WARN","message":"Latencia elevada: respuesta de 500ms en /api/payments"}
+{"timestamp":"2025-06-15T10:32:00","level":"INFO","message":"Cache invalidado correctamente"}
+{"timestamp":"2025-06-15T10:33:00","level":"ERROR","message":"Timeout al intentar conectar con PostgreSQL tras 3 reintentos"}
+{"timestamp":"2025-06-15T10:34:00","level":"DEBUG","message":"Thread pool utilization: 45%"}
+{"timestamp":"2025-06-15T10:35:00","level":"WARN","message":"Pool de conexiones casi lleno: 95 de 100 slots usados"}
+{"timestamp":"2025-06-15T10:36:00","level":"ERROR","message":"Circuit breaker abierto: servicio externo tardó 500ms y falló"}
+{"timestamp":"2025-06-15T10:37:00","level":"INFO","message":"Job de limpieza ejecutado. 1200 registros procesados."}
+{"timestamp":"2025-06-15T10:38:00","level":"ERROR","message":"NullPointerException en PaymentService.process() - sin contexto de conexion"}
+{"timestamp":"2025-06-15T10:39:00","level":"WARN","message":"Retry #3 fallido. Tiempo de espera 500ms superado."}

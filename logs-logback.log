@@ -1,0 +1,9 @@
+2025-06-15 10:28:00.100  INFO  com.app.StartupService - Servidor iniciado correctamente
+2025-06-15 10:29:00.200  INFO  com.app.HealthCheck - Todos los servicios responden
+2025-06-15 10:30:00.500  ERROR com.app.DatabasePool - No se puede conectar al nodo primario
+2025-06-15 10:31:00.300  WARN  com.app.PaymentService - Latencia elevada detectada: 500ms en procesamiento
+2025-06-15 10:32:00.100  INFO  com.app.CacheService - Cache correctamente invalidado
+2025-06-15 10:33:00.800  ERROR com.app.ApiGateway - Timeout intentando conectar con servicio externo
+2025-06-15 10:34:00.050  DEBUG com.app.ThreadPool - Thread pool al 45% de capacidad
+2025-06-15 10:35:00.400  WARN  com.app.DbPool - Pool de conexiones saturado: 500ms de espera en acquire
+2025-06-15 10:36:00.900  ERROR com.app.CircuitBreaker - Circuit breaker abierto por timeout de 500ms
