@@ -1,0 +1,55 @@
+name: CodeQL advanced
+
+on:
+  pull_request:
+    branches:
+      - develop
+  push:
+    branches:
+      [ "master", "develop", "staging" ]
+
+  schedule:
+    - cron: '18 21 * * 2'
+
+jobs:
+  analyze:
+    name: Analyze (java-kotlin)
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: "17"
+        distribution: temurin
+
+    - name: Make mvnw executable
+      run: chmod +x ./mvnw
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v4
+      with:
+        languages: java-kotlin
+        build-mode: manual
+        queries: security-extended,security-and-quality
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v4
+      with:
+        category: "/language:java-kotlin"
+        output: results/
+
+    - name: Upload SARIF artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: sarif-report-java-kotlin
+        path: results/
+        retention-days: 1
